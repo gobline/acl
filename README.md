@@ -158,3 +158,12 @@ $acl2 = new Mendo\Acl\Acl($roles);
 
 // defining rules for $acl2
 ```
+
+## Installation
+
+You can install Mendo ACL using the dependency management tool [Composer](https://getcomposer.org/).
+Run the *require* command to resolve and download the dependencies:
+
+```
+composer require mendoframework/acl
+```
