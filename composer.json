@@ -22,6 +22,13 @@
         "php": ">=5.5.0"
     },
     "require-dev": {
-        "pimple/pimple": "3.0.*@dev"
+        "pimple/pimple": "3.0.*@dev",
+        "phpunit/phpunit": "4.3.*@dev",
+        "fabpot/php-cs-fixer": "*@dev"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 }
