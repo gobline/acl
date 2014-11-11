@@ -107,7 +107,7 @@ $acl->addRole('john')
 	->allow('john', $resource, 'read');
 
 $acl->isAllowed('john', '/home/john/file.txt', 'read'); // returns true
-$acl->isAllowed('john', '/home/john/file.txt', 'write'); // returns true
+$acl->isAllowed('john', '/home/john/file.txt', 'write'); // returns false
 $acl->isAllowed('john', '/home/matthew/file.txt', 'read'); // returns false
 ```
 
