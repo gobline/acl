@@ -53,7 +53,7 @@ class AclTest extends PHPUnit_Framework_TestCase
         $role = $this->acl->getRole('guest');
     }
 
-    public function testAclAddRoleNotValid()
+    public function testAclAddInvaliudRole()
     {
         $this->setExpectedException('\InvalidArgumentException', 'type');
         $role = $this->acl->addRole(new \stdClass());
@@ -68,7 +68,7 @@ class AclTest extends PHPUnit_Framework_TestCase
     public function testNewEmptyRole()
     {
         $this->setExpectedException('\InvalidArgumentException', 'empty');
-        $role = new Role('');
+        new Role('');
     }
 
     public function testAclAddRoleDuplicate()
@@ -170,7 +170,7 @@ class AclTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->acl->isAllowed('guest', 'page', 'view'));
     }
 
-    public function testAclAllowRoleNotValid()
+    public function testAclAllowInvalidRole()
     {
         $this->setExpectedException('\InvalidArgumentException', 'type');
         $this->acl->allow(new \stdClass(), 'page', 'view');
@@ -182,7 +182,7 @@ class AclTest extends PHPUnit_Framework_TestCase
         $this->acl->allow('', 'page', 'view');
     }
 
-    public function testAclAllowResourceNotValid()
+    public function testAclAllowInvalidResource()
     {
         $this->acl->addRole('guest');
 
@@ -198,7 +198,7 @@ class AclTest extends PHPUnit_Framework_TestCase
         $this->acl->allow('guest', '', 'view');
     }
 
-    public function testAclAllowPrivilegeNotValid()
+    public function testAclAllowInvalidPrivilege()
     {
         $this->acl->addRole('guest');
 
@@ -214,7 +214,7 @@ class AclTest extends PHPUnit_Framework_TestCase
         $this->acl->allow('guest', 'page', '');
     }
 
-    public function testAclIsAllowedRoleNotValid()
+    public function testAclIsAllowedRoleInvalid()
     {
         $this->setExpectedException('\InvalidArgumentException', 'type');
         $this->acl->isAllowed(new \stdClass(), 'page', 'view');
@@ -226,7 +226,7 @@ class AclTest extends PHPUnit_Framework_TestCase
         $this->acl->isAllowed('', 'page', 'view');
     }
 
-    public function testAclIsAllowedResourceNotValid()
+    public function testAclIsAllowedInvalidResource()
     {
         $this->acl->addRole('guest');
 
@@ -242,7 +242,7 @@ class AclTest extends PHPUnit_Framework_TestCase
         $this->acl->isAllowed('guest', '', 'view');
     }
 
-    public function testAclIsAllowedPrivilegeNotValid()
+    public function testAclIsAllowedInvalidPrivilege()
     {
         $this->acl->addRole('guest');
 
