@@ -2,9 +2,9 @@
 
 ACL's allow an application to control access to its protected areas, files, operations and objects from requests.
 
-* A **resource** represents an area or element to which access is controlled.
-* A **role** represents a user, users' group or object that may request access to a resource.
-* A **privilege** is an access right (or permission) for a resource, such as read and write permissions to a file.
+* a **resource** represents an area or element to which access is controlled.
+* a **role** represents a user, users' group or object that may request access to a resource.
+* a **privilege** is an access right (or permission) for a resource, such as read and write permissions to a file.
 
 ## Why Another ACL Component?
 
@@ -78,7 +78,7 @@ $acl->allow('superadmin', '*', '*'); // the role "superadmin" is now allowed to 
 
 ## Querying the ACL
 
-After adding the rules, we can query it to check if a role has been given permission or not.
+After adding the rules, we can query the ACL to check if a role has been given permission or not.
 
 ```php
 $acl->isAllowed('guest', 'page', 'edit'); // returns false
@@ -104,10 +104,11 @@ The most straightforward example demonstrating the use of matchers, would be imp
 $resource = new Mendo\Acl\Resource('/home/john', new Mendo\Acl\Matcher\StartsWithMatcher());
 
 $acl->addRole('john')
-	->allow('john', $resource, '*');
+	->allow('john', $resource, 'read');
 
-$acl->isAllowed('john', '/home/john/file.txt'); // returns true
-$acl->isAllowed('john', '/home/matthew/file.txt'); // returns false
+$acl->isAllowed('john', '/home/john/file.txt', 'read'); // returns true
+$acl->isAllowed('john', '/home/john/file.txt', 'write'); // returns true
+$acl->isAllowed('john', '/home/matthew/file.txt', 'read'); // returns false
 ```
 
 Another example:
