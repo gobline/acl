@@ -53,7 +53,7 @@ class AclTest extends PHPUnit_Framework_TestCase
         $role = $this->acl->getRole('guest');
     }
 
-    public function testAclAddInvaliudRole()
+    public function testAclAddInvalidRole()
     {
         $this->setExpectedException('\InvalidArgumentException', 'type');
         $role = $this->acl->addRole(new \stdClass());
