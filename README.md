@@ -9,13 +9,13 @@ ACL's allow an application to control access to its protected areas, files, oper
 ## Why Another ACL Component?
 
 The Mendo ACL component was primarily written to **add support for** defining rules on **path resources**.
-You will find the basic usage in the following sections but by then you can already have a look at the quick excerpt below demonstrating the utility and advantage of the component.
+You will find the basic usage in the following sections but by then, if you are already a little familiar to ACL, you can already have a look at the quick excerpt below demonstrating the utility and advantage of the component.
 
 ```php
 $memberArea = new Mendo\Acl\Resource('/member-area', new Mendo\Acl\Matcher\StartsWithMatcher());
 
 $acl->addRole('member')
-	->allow('member', $membersArea, '*');
+	->allow('member', $memberArea, '*');
     
 $adminArea = new Mendo\Acl\Resource('/admin-area', new Mendo\Acl\Matcher\StartsWithMatcher());
 
@@ -60,13 +60,13 @@ $acl->allow('guest', 'page', 'view'); // the role "guest" is now allowed to "vie
 $acl->allow('member', 'page', ['view', 'create', 'edit']); // the role "member" is allowed to "view", "create" and "edit" the "page" resource
 ```
 
-To define a rule applied to all resources, the special resource named "*" should be used:
+To define a rule applied to all resources, the special resource named "*" can be used:
 
 ```php
 $acl->allow('guest', '*', 'view'); // the role "guest" is now allowed to "view" any resource
 ```
 
-To define a rule with all privileges, the special privilege named "*" should be used:
+To define a rule with all privileges, the special privilege named "*" can be used:
 
 ```php
 $acl->allow('admin', 'page', '*'); // the role "admin" is now allowed to access any privilege on the "page" resource
@@ -96,9 +96,9 @@ You will note that by default, until a developer specifies an *allow* rule, ```M
 
 As you might have noticed in the examples above, the resources are registered when defining the rules, while the roles must have previously been added to the ACL.
 
-The reason for this is because the resources can not only just be a name or identifier, but also a pattern or regex, or even a custom object implementing the ```matches()``` method of the ```Mendo\Acl\ResourceInterface```.
+The reason for this is because the resources can not only just be a name or identifier, but also a pattern or regex, or even a custom object implementing the ```matches()``` method of the ```Mendo\Acl\ResourceInterface``` interface.
 
-The most straightforward example demonstrating the use of matchers, would be implementating an ACL managing access rights to files.
+The most straightforward example demonstrating the use of matchers, would be implementing an ACL managing access rights to files.
 
 ```php
 $resource = new Mendo\Acl\Resource('/home/john', new Mendo\Acl\Matcher\StartsWithMatcher());
@@ -114,13 +114,13 @@ $acl->isAllowed('john', '/home/matthew/file.txt', 'read'); // returns false
 Another example:
 
 ```php
-$resource = new Mendo\Acl\Resource('%^page/(.*?)/view%', new RegexMatcher());
+$resource = new Mendo\Acl\Resource('%^/page/(.*?)/view%', new RegexMatcher());
 
 $acl->addRole('guest')
 	->allow('guest', $resource, '*');
 
-$acl->isAllowed('guest', 'page/42/view')); // returns true
-$acl->isAllowed('guest', 'page/42/edit')); // returns false
+$acl->isAllowed('guest', '/page/42/view')); // returns true
+$acl->isAllowed('guest', '/page/42/edit')); // returns false
 ```
 
 ## Roles Inheritance
@@ -138,9 +138,9 @@ $acl->allow('guest', 'page', 'view') // guests can only view pages
   ->allow('moderator', 'page', 'delete'); // moderators can view, edit and delete pages
 ```
 
-The example above also demonstrates the use of ```deny()``` (because one might wonder what is the purpose of having a ```deny()``` method if anything is denied by default anyway). The moderators inherit the *view* privilege from the *guest* role and the *create* and *edit* privileges from the *member* role. However, we don't want to allow a moderator to be able to create new pages, but only moderate existing pages. To achieve this, we can simply add a deny rule overriding the inherited rule that allowed the *create* privilege, as shown above.
+The example above also demonstrates the use of ```deny()``` (because one might wonder what is the purpose of having a ```deny()``` method if anything is denied by default anyway). The moderators inherit the *view* privilege from the *guest* role and the *create* and *edit* privileges from the *member* role. However, we don't want to allow a moderator to be able to create new pages, but only moderate existing pages. To achieve this, we simply add a deny rule overriding the inherited rule that granted *create* persmission, as shown above.
 
-## Sharing the Roles among Multiple ACL Instances
+## Sharing Roles among Multiple ACL Instances
 
 There are cases where you might need to have multiple ACL instances. For instance, you might need to define rules for path resources, and rules for different resources in your application. To avoid mixing different type of resources in your ACL, you can create multiple ACL instances and share a unique *role registry*.
 
