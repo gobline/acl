@@ -64,7 +64,11 @@ class AclServiceProvider implements ServiceProviderInterface
                     $role = $rule['role'];
                     $privileges = !empty($rule['privileges']) ? $rule['privileges'] : '*';
                     $allowed = !empty($rule['allowed']) ? $rule['allowed'] : true;
-                    $acl->addRule($role, $resource, $privileges, $allowed);
+                    if ($allowed) {
+                        $acl->allow($role, $resource, $privileges);
+                    } else {
+                        $acl->deny($role, $resource, $privileges);
+                    }
                 }
             }
 
