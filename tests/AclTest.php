@@ -334,6 +334,20 @@ class AclTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->acl2->isAllowed('guest', 'bar', 'view'));
         $this->assertFalse($this->acl1->isAllowed('guest', 'bar', 'view'));
     }
+
+    public function testAclDefaultResourceMatcher()
+    {
+        $resource = new Resource('page/', new StartsWithMatcher());
+
+        $this->acl->addRole('guest');
+
+        $this->acl->setDefaultResourceMatcher('startsWith');
+
+        $this->acl->allow('guest', 'page/', '*');
+
+        $this->assertTrue($this->acl->isAllowed('guest', 'page/view/42'));
+        $this->assertFalse($this->acl->isAllowed('guest', 'user/view/42'));
+    }
 }
 
 class MyCustomResource implements ResourceInterface

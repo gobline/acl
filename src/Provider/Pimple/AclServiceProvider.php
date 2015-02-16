@@ -35,7 +35,6 @@ class AclServiceProvider implements ServiceProviderInterface
             'roles' => [],
             'resources' => [],
         ];
-        $container[$this->reference.'.defaultResourceType'] = 'default';
 
         $container[$this->reference] = function ($c) {
             if (!empty($c[$this->reference.'.acl.roles'])) {
@@ -51,11 +50,11 @@ class AclServiceProvider implements ServiceProviderInterface
             }
 
             $acl = new Acl($roles);
+            if (!empty($c[$this->reference.'.defaultResourceMatcher'])) {
+                $acl->setDefaultResourceMatcher($c[$this->reference.'.defaultResourceMatcher']);
+            }
 
             foreach ($c[$this->reference.'.definitions']['resources'] as $resource => $data) {
-                $resourceType = !empty($data['type']) ? $data['type'] : $c[$this->reference.'.defaultResourceType'];
-                $resourceMatcher = 'Mendo\\Acl\\Matcher\\'.ucfirst($resourceType).'Matcher';
-                $resource = new Resource($resource, new $resourceMatcher());
                 $rules = !empty($data['rules']) ? $data['rules'] : [];
                 foreach ($rules as $rule) {
                     if (empty($rule['role'])) {

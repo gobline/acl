@@ -11,6 +11,8 @@
 
 namespace Mendo\Acl;
 
+use Matcher\MatcherInterface;
+
 /**
  * An ACL implementation.
  *
@@ -20,6 +22,7 @@ class Acl implements AclInterface
 {
     private $roles;
     private $rules = [];
+    private $defaultResourceMatcher;
 
     /**
      * @param Roles $roles
@@ -86,7 +89,7 @@ class Acl implements AclInterface
         $role = $this->roles->get($role);
 
         if (is_scalar($resource)) {
-            $resource = new Resource($resource);
+            $resource = new Resource($resource, $this->defaultResourceMatcher);
         } elseif (!$resource instanceof ResourceInterface) {
             throw new \InvalidArgumentException('$resource is expected to be of type string or Mendo\Acl\ResourceInterface');
         }
@@ -164,5 +167,22 @@ class Acl implements AclInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param MatcherInterface|string $defaultResourceMatcher
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function setDefaultResourceMatcher($defaultResourceMatcher)
+    {
+        if (is_scalar($defaultResourceMatcher)) {
+            $defaultResourceMatcher = 'Mendo\\Acl\\Matcher\\'.ucfirst($defaultResourceMatcher).'Matcher';
+            $defaultResourceMatcher = new $defaultResourceMatcher();
+        } elseif (!$resource instanceof MatcherInterface) {
+            throw new \InvalidArgumentException('$defaultResourceMatcher is expected to be of type string or Mendo\Acl\Matcher\MatcherInterface');
+        }
+
+        $this->defaultResourceMatcher = $defaultResourceMatcher;
     }
 }
