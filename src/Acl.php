@@ -29,7 +29,7 @@ class Acl implements AclInterface
      */
     public function __construct(RoleCollection $roles = null)
     {
-        $this->roles = $roles ?: new Roles();
+        $this->roles = $roles ?: new RoleCollection();
     }
 
     public function addRole($role, $inherits = [])
