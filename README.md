@@ -1,4 +1,4 @@
-# ACL (Access Control List) Component - Mendo Framework
+# ACL (Access Control List) component
 
 ACL's allow an application to control access to its protected areas, files, operations and objects from requests.
 
@@ -8,16 +8,16 @@ ACL's allow an application to control access to its protected areas, files, oper
 
 ## Why Another ACL Component?
 
-The Mendo ACL component was primarily written to **add support for** defining rules on **path resources**.
+The ACL component was primarily written to **add support for** defining rules on **path resources**.
 You will find the basic usage in the following sections but by then, if you are already a little familiar to ACL, you can already have a look at the quick excerpt below demonstrating the utility and advantage of the component.
 
 ```php
-$memberArea = new Mendo\Acl\Resource('/member-area', new Mendo\Acl\Matcher\StartsWithMatcher());
+$memberArea = new Gobline\Acl\Resource('/member-area', new Gobline\Acl\Matcher\StartsWithMatcher());
 
 $acl->addRole('member')
 	->allow('member', $memberArea, '*');
     
-$adminArea = new Mendo\Acl\Resource('/admin-area', new Mendo\Acl\Matcher\StartsWithMatcher());
+$adminArea = new Gobline\Acl\Resource('/admin-area', new Gobline\Acl\Matcher\StartsWithMatcher());
 
 $acl->addRole('admin')
 	->allow('admin', $adminArea, '*');
@@ -32,7 +32,7 @@ In a web application, this is particularly useful to control access on the appli
 ## Creating an ACL
 
 ```php
-$acl = new Mendo\Acl\Acl();
+$acl = new Gobline\Acl\Acl();
 ```
 
 ## Adding Roles to the ACL
@@ -44,7 +44,7 @@ $acl->addRole('guest');
 or
 
 ```php
-$roleGuest = new Mendo\Acl\Role('guest');
+$roleGuest = new Gobline\Acl\Role('guest');
 $acl->addRole($roleGuest);
 ```
 
@@ -90,18 +90,18 @@ $acl->isAllowed('admin', 'user', 'edit'); // returns false
 $acl->isAllowed('superadmin', 'user', 'edit'); // returns true
 ```
 
-You will note that by default, until a developer specifies an *allow* rule, ```Mendo\Acl\Acl``` denies access to every privilege upon every resource by every role.
+You will note that by default, until a developer specifies an *allow* rule, ```Gobline\Acl\Acl``` denies access to every privilege upon every resource by every role.
 
 ## Resources
 
 As you might have noticed in the examples above, the resources are registered when defining the rules, while the roles must have previously been added to the ACL.
 
-The reason for this is because the resources can not only just be a name or identifier, but also a pattern or regex, or even a custom object implementing the ```matches()``` method of the ```Mendo\Acl\ResourceInterface``` interface.
+The reason for this is because the resources can not only just be a name or identifier, but also a pattern or regex, or even a custom object implementing the ```matches()``` method of the ```Gobline\Acl\ResourceInterface``` interface.
 
 The most straightforward example demonstrating the use of matchers, would be implementing an ACL managing access rights to files.
 
 ```php
-$resource = new Mendo\Acl\Resource('/home/john', new Mendo\Acl\Matcher\StartsWithMatcher());
+$resource = new Gobline\Acl\Resource('/home/john', new Gobline\Acl\Matcher\StartsWithMatcher());
 
 $acl->addRole('john')
 	->allow('john', $resource, 'read');
@@ -114,7 +114,7 @@ $acl->isAllowed('john', '/home/matthew/file.txt', 'read'); // returns false
 Another example:
 
 ```php
-$resource = new Mendo\Acl\Resource('%^/page/(.*?)/view%', new RegexMatcher());
+$resource = new Gobline\Acl\Resource('%^/page/(.*?)/view%', new RegexMatcher());
 
 $acl->addRole('guest')
 	->allow('guest', $resource, '*');
@@ -145,26 +145,26 @@ The example above also demonstrates the use of ```deny()``` (because one might w
 There are cases where you might need to have multiple ACL instances. For instance, you might need to define rules for path resources, and rules for different resources in your application. To avoid mixing different type of resources in your ACL, you can create multiple ACL instances and share a unique *role registry*.
 
 ```php
-$roles = new Mendo\Acl\Roles(); // registry of roles
+$roles = new Gobline\Acl\Roles(); // registry of roles
 
 $roles->add('guest')
   ->add('member', 'guest')
   ->add('moderator', 'member');
 
-$acl1 = new Mendo\Acl\Acl($roles);
+$acl1 = new Gobline\Acl\Acl($roles);
 
 // defining rules for $acl1
 
-$acl2 = new Mendo\Acl\Acl($roles);
+$acl2 = new Gobline\Acl\Acl($roles);
 
 // defining rules for $acl2
 ```
 
 ## Installation
 
-You can install Mendo ACL using the dependency management tool [Composer](https://getcomposer.org/).
+You can install the ACL component using the dependency management tool [Composer](https://getcomposer.org/).
 Run the *require* command to resolve and download the dependencies:
 
 ```
-composer require mendoframework/acl
+composer require gobline/acl
 ```

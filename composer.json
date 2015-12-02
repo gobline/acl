@@ -1,6 +1,6 @@
 {
-    "name": "mendoframework/acl",
-    "description": "Mendo ACL Component",
+    "name": "gobline/acl",
+    "description": "ACL component",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -9,13 +9,13 @@
         }
     ],
     "keywords": [
-        "mf", "mendoframework", "mendo framework",
+        "gobline", 
         "acl", "access control list"
     ],
-    "homepage": "https://github.com/mendoframework",
+    "homepage": "https://github.com/gobline",
     "autoload": {
         "psr-4": {
-            "Mendo\\Acl\\": "src/"
+            "Gobline\\Acl\\": "src/"
         }
     },
     "require": {
