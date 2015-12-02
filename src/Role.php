@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Mendo\Acl;
+namespace Gobline\Acl;
 
 /**
  * A role represents a user, users' group or object that may request access to a resource.
  *
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  */
-class Role
+class Role implements RoleInterface
 {
     protected $name;
     protected $parents = []; // inherited roles
@@ -64,18 +64,14 @@ class Role
     }
 
     /**
-     * @param Role|string $role
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function equals($role)
     {
         if (is_scalar($role)) {
             $role = new Role($role);
         } elseif (!$role instanceof Role) {
-            throw new \InvalidArgumentException('$role is expected to be of type string or Mendo\Acl\Role');
+            throw new \InvalidArgumentException('$role is expected to be of type string or Gobline\Acl\Role');
         }
 
         $roleName = $role->getName();
@@ -84,9 +80,7 @@ class Role
     }
 
     /**
-     * @param Role|string $role
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function inherits($role)
     {
@@ -97,7 +91,7 @@ class Role
         if (is_scalar($role)) {
             $role = new Role($role);
         } elseif (!$role instanceof Role) {
-            throw new \InvalidArgumentException('$role is expected to be of type string or Mendo\Acl\Role');
+            throw new \InvalidArgumentException('$role is expected to be of type string or Gobline\Acl\Role');
         }
 
         foreach ($this->parents as $parent) {

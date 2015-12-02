@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Mendo\Acl;
+namespace Gobline\Acl;
 
 /**
  * Registry of roles.
  *
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  */
-class Roles
+class RoleCollection
 {
     private $roles = [];
 
@@ -33,7 +33,7 @@ class Roles
         if (is_scalar($role)) {
             $role = new Role($role);
         } elseif (!$role instanceof Role) {
-            throw new \InvalidArgumentException('$role is expected to be of type string or Mendo\Acl\Role');
+            throw new \InvalidArgumentException('$role is expected to be of type string or Gobline\Acl\Role');
         }
 
         $roleName = $role->getName();
@@ -49,7 +49,7 @@ class Roles
             if (is_scalar($parent)) {
                 $parent = $this->get($parent);
             } elseif (!$parent instanceof Role) {
-                throw new \InvalidArgumentException('$inherits elements are expected to be of type string or Mendo\Acl\Role');
+                throw new \InvalidArgumentException('$inherits elements are expected to be of type string or Gobline\Acl\Role');
             }
             $role->addParent($parent);
         }
@@ -71,7 +71,7 @@ class Roles
         if (is_scalar($role)) {
             $role = new Role($role);
         } elseif (!$role instanceof Role) {
-            throw new \InvalidArgumentException('$role is expected to be of type string or Mendo\Acl\Role');
+            throw new \InvalidArgumentException('$role is expected to be of type string or Gobline\Acl\Role');
         }
 
         $roleName = $role->getName();
@@ -95,11 +95,20 @@ class Roles
         if (is_scalar($role)) {
             $role = new Role($role);
         } elseif (!$role instanceof Role) {
-            throw new \InvalidArgumentException('$role is expected to be of type string or Mendo\Acl\Role');
+            throw new \InvalidArgumentException('$role is expected to be of type string or Gobline\Acl\Role');
         }
 
         $roleName = $role->getName();
 
         return isset($this->roles[$roleName]);
+    }
+
+    public function setCollection(array $collection)
+    {
+        foreach ($collection as $role => $inherits) {
+            $this->add($role, $inherits);
+        }
+
+        return $this;
     }
 }

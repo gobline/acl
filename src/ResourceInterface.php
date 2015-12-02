@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Mendo\Acl;
+namespace Gobline\Acl;
 
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Mendo\Acl;
+namespace Gobline\Acl;
 
 use Matcher\MatcherInterface;
 
@@ -27,7 +27,7 @@ class Acl implements AclInterface
     /**
      * @param Roles $roles
      */
-    public function __construct(Roles $roles = null)
+    public function __construct(RoleCollection $roles = null)
     {
         $this->roles = $roles ?: new Roles();
     }
@@ -82,7 +82,7 @@ class Acl implements AclInterface
         if (is_scalar($resource)) {
             $resource = new Resource($resource, $this->defaultResourceMatcher);
         } elseif (!$resource instanceof ResourceInterface) {
-            throw new \InvalidArgumentException('$resource is expected to be of type string or Mendo\Acl\ResourceInterface');
+            throw new \InvalidArgumentException('$resource is expected to be of type string or Gobline\Acl\ResourceInterface');
         }
 
         if (!is_array($privileges)) {
@@ -92,7 +92,7 @@ class Acl implements AclInterface
             if (is_scalar($privilege)) {
                 $privilege = new Privilege($privilege);
             } elseif (!$privilege instanceof Privilege) {
-                throw new \InvalidArgumentException('$privileges elements are expected to be of type string or Mendo\Acl\Privilege');
+                throw new \InvalidArgumentException('$privileges elements are expected to be of type string or Gobline\Acl\Privilege');
             }
             $rule = new Rule($role, $resource, $privilege, $isAllowed);
             array_unshift($this->rules, $rule); // last rule added is the first to be evaluated
@@ -127,13 +127,13 @@ class Acl implements AclInterface
         if (is_scalar($resource)) {
             $resource = new Resource($resource);
         } elseif (!$resource instanceof ResourceInterface) {
-            throw new \InvalidArgumentException('$resource is expected to be of type string or Mendo\Acl\ResourceInterface');
+            throw new \InvalidArgumentException('$resource is expected to be of type string or Gobline\Acl\ResourceInterface');
         }
 
         if (is_scalar($privilege)) {
             $privilege = new Privilege($privilege);
         } elseif (!$privilege instanceof Privilege) {
-            throw new \InvalidArgumentException('$privilege is expected to be of type string or Mendo\Acl\Privilege');
+            throw new \InvalidArgumentException('$privilege is expected to be of type string or Gobline\Acl\Privilege');
         }
 
         foreach ($this->rules as $rule) {
@@ -168,10 +168,10 @@ class Acl implements AclInterface
     public function setDefaultResourceMatcher($defaultResourceMatcher)
     {
         if (is_scalar($defaultResourceMatcher)) {
-            $defaultResourceMatcher = 'Mendo\\Acl\\Matcher\\'.ucfirst($defaultResourceMatcher).'Matcher';
+            $defaultResourceMatcher = 'Gobline\\Acl\\Matcher\\'.ucfirst($defaultResourceMatcher).'Matcher';
             $defaultResourceMatcher = new $defaultResourceMatcher();
         } elseif (!$resource instanceof MatcherInterface) {
-            throw new \InvalidArgumentException('$defaultResourceMatcher is expected to be of type string or Mendo\Acl\Matcher\MatcherInterface');
+            throw new \InvalidArgumentException('$defaultResourceMatcher is expected to be of type string or Gobline\Acl\Matcher\MatcherInterface');
         }
 
         $this->defaultResourceMatcher = $defaultResourceMatcher;

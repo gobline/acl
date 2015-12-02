@@ -9,18 +9,26 @@
  * file that was distributed with this source code.
  */
 
-namespace Gobline\Acl\Matcher;
+namespace Gobline\Acl;
 
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  */
-class StartsWithMatcher implements MatcherInterface
+interface RoleInterface
 {
     /**
-     * {@inheritdoc}
+     * @param Role|string $role
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return bool
      */
-    public function matches($haystack, $needle)
-    {
-        return $needle === '' || strpos($haystack, $needle) === 0;
-    }
+    public function equals($role);
+
+    /**
+     * @param Role|string $role
+     *
+     * @return bool
+     */
+    public function inherits($role);
 }

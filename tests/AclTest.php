@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-use Mendo\Acl\Acl;
-use Mendo\Acl\Role;
-use Mendo\Acl\Roles;
-use Mendo\Acl\Resource;
-use Mendo\Acl\ResourceInterface;
-use Mendo\Acl\Matcher\StartsWithMatcher;
-use Mendo\Acl\Matcher\RegexMatcher;
+use Gobline\Acl\Acl;
+use Gobline\Acl\Role;
+use Gobline\Acl\RoleCollection;
+use Gobline\Acl\Resource;
+use Gobline\Acl\ResourceInterface;
+use Gobline\Acl\Matcher\StartsWithMatcher;
+use Gobline\Acl\Matcher\RegexMatcher;
 
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
@@ -316,7 +316,7 @@ class AclTest extends PHPUnit_Framework_TestCase
 
     public function testMultipleAclOneSetOfRoles()
     {
-        $roles = new Roles();
+        $roles = new RoleCollection();
         $roles->add('guest')
               ->add('member', 'guest');
 

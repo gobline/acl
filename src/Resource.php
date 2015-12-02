@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Mendo\Acl;
+namespace Gobline\Acl;
 
-use Mendo\Acl\Matcher\MatcherInterface;
-use Mendo\Acl\Matcher\DefaultMatcher;
+use Gobline\Acl\Matcher\MatcherInterface;
+use Gobline\Acl\Matcher\DefaultMatcher;
 
 /**
  * A resource represents an area, operation, file or object that needs to be controlled.
@@ -71,7 +71,7 @@ class Resource implements ResourceInterface
             } elseif ($resource instanceof ResourceInterface) {
                 return false;
             } else {
-                throw new \InvalidArgumentException('$resource is expected to be of type string or Mendo\Acl\ResourceInterface');
+                throw new \InvalidArgumentException('$resource is expected to be of type string or Gobline\Acl\ResourceInterface');
             }
         }
 

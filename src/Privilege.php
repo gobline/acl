@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Mendo\Acl;
+namespace Gobline\Acl;
 
 /**
  * A privilege is an access right (or permission) for a resource.
@@ -53,7 +53,7 @@ class Privilege
         if (is_scalar($privilege)) {
             $privilege = new Privilege($privilege);
         } elseif (!$privilege instanceof Privilege) {
-            throw new \InvalidArgumentException('$privilege is expected to be of type string or Mendo\Acl\Privilege');
+            throw new \InvalidArgumentException('$privilege is expected to be of type string or Gobline\Acl\Privilege');
         }
 
         return $privilege->getName() === $this->name;
