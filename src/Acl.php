@@ -176,4 +176,13 @@ class Acl implements AclInterface
 
         $this->defaultResourceMatcher = $defaultResourceMatcher;
     }
+
+    public function setRules(array $rules)
+    {
+        foreach ($rules as $ruleData) {
+            $this->addRule(...$ruleData);
+        }
+
+        return $this;
+    }
 }
