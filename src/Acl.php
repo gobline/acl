@@ -32,9 +32,6 @@ class Acl implements AclInterface
         $this->roles = $roles ?: new Roles();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addRole($role, $inherits = [])
     {
         $this->roles->add($role, $inherits);
@@ -58,17 +55,11 @@ class Acl implements AclInterface
         return $this->roles->has($role);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function allow($role, $resource, $privileges)
     {
         return $this->addRule($role, $resource, $privileges, true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function deny($role, $resource, $privileges)
     {
         return $this->addRule($role, $resource, $privileges, false);

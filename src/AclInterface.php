@@ -17,16 +17,6 @@ namespace Mendo\Acl;
 interface AclInterface
 {
     /**
-     * @param Role|string       $role
-     * @param Role|string|array $inherits
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return AclInterface
-     */
-    public function addRole($role, $inherits = []);
-
-    /**
      * @param Role|string $role
      *
      * @throws \InvalidArgumentException
@@ -43,28 +33,6 @@ interface AclInterface
      * @return Role
      */
     public function hasRole($role);
-
-    /**
-     * @param Role|string              $role
-     * @param ResourceInterface|string $resource
-     * @param Privilege|string|array   $privileges
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return AclInterface
-     */
-    public function allow($role, $resource, $privileges);
-
-    /**
-     * @param Role|string              $role
-     * @param ResourceInterface|string $resource
-     * @param Privilege|string|array   $privileges
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return AclInterface
-     */
-    public function deny($role, $resource, $privileges);
 
     /**
      * @param Role|string              $role
