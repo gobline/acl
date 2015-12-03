@@ -14,6 +14,6 @@ namespace Gobline\Acl\Exception;
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  */
-class NotAuthorizedException extends \RuntimeException 
+class NotAuthorizedException extends \RuntimeException
 {
 }

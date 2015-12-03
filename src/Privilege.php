@@ -51,8 +51,8 @@ class Privilege
     public function equals($privilege)
     {
         if (is_scalar($privilege)) {
-            $privilege = new Privilege($privilege);
-        } elseif (!$privilege instanceof Privilege) {
+            $privilege = new self($privilege);
+        } elseif (!$privilege instanceof self) {
             throw new \InvalidArgumentException('$privilege is expected to be of type string or Gobline\Acl\Privilege');
         }
 

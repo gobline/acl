@@ -363,7 +363,7 @@ class MyCustomResource implements ResourceInterface
 
     public function matches($resource)
     {
-        if (!$resource instanceof MyCustomResource) {
+        if (!$resource instanceof self) {
             return false;
         }
 

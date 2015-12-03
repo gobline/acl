@@ -65,9 +65,9 @@ class Resource implements ResourceInterface
      */
     public function matches($resource)
     {
-        if (!$resource instanceof Resource) {
+        if (!$resource instanceof self) {
             if (is_scalar($resource)) {
-                $resource = new Resource($resource);
+                $resource = new self($resource);
             } elseif ($resource instanceof ResourceInterface) {
                 return false;
             } else {

@@ -39,9 +39,9 @@ class Role implements RoleInterface
      */
     public function addParent($role)
     {
-        if (!$role instanceof Role) {
+        if (!$role instanceof self) {
             $rolename = (string) $role;
-            $role = new Role($rolename);
+            $role = new self($rolename);
         }
 
         $this->parents[$role->getName()] = $role;
@@ -69,8 +69,8 @@ class Role implements RoleInterface
     public function equals($role)
     {
         if (is_scalar($role)) {
-            $role = new Role($role);
-        } elseif (!$role instanceof Role) {
+            $role = new self($role);
+        } elseif (!$role instanceof self) {
             throw new \InvalidArgumentException('$role is expected to be of type string or Gobline\Acl\Role');
         }
 
@@ -89,8 +89,8 @@ class Role implements RoleInterface
         }
 
         if (is_scalar($role)) {
-            $role = new Role($role);
-        } elseif (!$role instanceof Role) {
+            $role = new self($role);
+        } elseif (!$role instanceof self) {
             throw new \InvalidArgumentException('$role is expected to be of type string or Gobline\Acl\Role');
         }
 
